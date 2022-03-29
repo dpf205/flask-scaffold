@@ -1,0 +1,56 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+
+
+{% block body %}
+
+    <h4>Register</h4>
+
+    <div class="container shadow p-3 mb-5 bg-body rounded">
+
+        <form method="POST" action="{{ url_for("users.register") }}">
+
+            {% for message in get_flashed_messages() %}
+                <div class="alert-error">Error: {{ message }}</div>
+            {% endfor %}
+
+            {{ form.hidden_tag() }}
+
+            <br/>
+
+            {#            {{ form.username.label(class="form-label") }}#}
+            {##}
+            {#            {{ form.username(class="form-control") }}#}
+            <br/>
+
+            {{ form.email.label(class="form-label") }}
+
+            {{ form.email(class="form-control") }}
+            <br/>
+
+            {{ form.password.label(class="form-label") }}
+
+            {{ form.password(class="form-control") }}
+            <br/>
+
+            {{ form.confirm_password.label(class="form-label") }}
+
+            {{ form.confirm_password(class="form-control") }}
+            <br/>
+
+            {{ form.submit(class="btn btn-secondary") }}
+
+        </form>
+
+    </div>
+
+    <h4>Already have an account? <a href="{{ url_for("users.login") }}">Login</a></h4>
+
+
+
+
+{% endblock %}

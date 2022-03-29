@@ -1,0 +1,61 @@
+# Server
+Flask==2.0.3
+Werkzeug==2.0.3
+python-decouple==3.6
+
+# Application server for both development and production.
+gunicorn==20.1.0
+
+# Testing and static analysis.
+pytest==5.1.0
+pytest-cov==2.7.1
+flake8==3.7.8
+mock==1.3.0
+
+# CLI.
+click==7.1.2
+
+# Database, ORM, Data, and workers.
+psycopg2
+alembic==1.7.6
+SQLAlchemy==1.3.24
+Flask-Migrate==2.7.0
+Flask-SQLAlchemy==2.4.4
+SQLAlchemy-Utils==0.38.2
+
+
+# Authentication / Authorisation
+Flask-Security-Too
+Flask-Login==0.5.0
+email-validator
+cryptography==36.0.1
+passlib
+Flask-Mail==0.9.1
+bcrypt
+
+# Forms / Frontend.
+Flask-WTF==1.0.0
+WTForms==3.0.1    # previous 2.3.3
+Jinja2==3.0.3  # previous 2.11.2
+itsdangerous==2.1.0
+requests==2.27.1
+
+# Utils.
+fake-factory==0.5.7
+flask-debugtoolbar==0.10.0
+Flask-Limiter==0.9.3
+Flask-BabelEx==0.9.4
+Flask-Babel
+
+
+# Miscellaneous
+Mako==1.1.4
+MarkupSafe==2.0
+python-dateutil==2.8.1
+python-editor==1.0.4
+
+Flask-CKEditor==0.4.6
+six==1.15.0
+cffi==1.14.5
+protobuf==3.15.5
+pycparser==2.20

@@ -1,0 +1,68 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+    Admin Panel
+{% endblock %}
+
+
+
+<!-- admin user management features: change password, create/delete users, grant/revoke permissions-->
+{% block body %}
+
+    <div class="container-fluid">
+        <p><h3>Admin Panel</h3></p>
+        <br>
+        <p><h6>Logged in as Admin: {{ current_admin_user }}.</h6> </p>
+
+        <!-- Output an unordered list of user account information-->
+        <h6>Existing User(s):</h6>
+        <ul class="list-group">
+            {% for user in all_users_list %}
+                {% if user.email != current_admin_user %}
+
+                    <li class="list-group-item">
+                        User ID: {{ user.id }}<br>
+                        Username: {{ user.email }} <br>
+                        Creation Date: {{ user.confirmed_at.strftime('%A  %B  %d, %Y , %T') }} <br>
+                        Role(s):
+                        {% for role in user.roles %}
+                            {{ role.name }}
+                        {% endfor %} <br>
+
+                        <!-- Activate / deactivate user account. -->
+                        {% if user.active %}
+                       Status: Active <br>
+                            <form method="POST" action="{{ url_for("users.deactivate_user") }}">
+                                <div class="form-group">
+                                    {{ deactivate_user_form.csrf_token() }}
+                                    {{ deactivate_user_form.deactivate_user_id_field(value=user.id) }}
+                                    {{ deactivate_user_form.deactivate_user_submit(class="btn btn-outline-danger btn-sm") }}
+                                </div>
+                            </form>
+                        {% else %}
+                            Status: Deactivated <br><br>
+                            <form method="POST" action="{{ url_for("users.activate_user") }}">
+                                <div class="form-group">
+                                    {{ activate_user_form.csrf_token() }}
+                                    {{ activate_user_form.activate_user_id_field(value=user.id) }}
+                                    {{ activate_user_form.activate_user_submit(class="btn btn-secondary btn-sm") }}
+                                </div>
+                            </form>
+                        {% endif %}
+                        <br>
+
+                        <!-- Delete user account. -->
+                        <form method="POST" action="{{ url_for("users.delete_user") }}">
+                            <div class="form-group">
+                                {{ delete_user_form.csrf_token() }}
+                                {{ delete_user_form.delete_user_id_field(value=user.id) }}
+                                {{ delete_user_form.delete_user_submit(class="btn btn-danger btn-sm") }}
+                            </div>
+                        </form>
+                    </li>
+
+                {% endif %}
+                </ul> <br>
+            {% endfor %}
+    </div>
+{% endblock %}

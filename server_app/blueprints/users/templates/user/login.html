@@ -1,0 +1,45 @@
+{% extends "layouts/base.html" %}
+
+
+
+{% block title %}
+    Login
+{% endblock %}
+
+
+
+
+{% block body %}
+
+    <h4>Login </h4>
+
+    <div class="container shadow p-3 mb-5 bg-body rounded">
+
+        <form method="POST" action="{{ url_for("users.login") }}">
+
+
+
+            {{ form.hidden_tag() }}
+
+            <br>
+
+            {{ form.email.label(class="form-label") }}
+
+            {{ form.email(class="form-control") }}
+            <br/>
+
+            {{ form.password.label(class="form-label") }}
+
+            {{ form.password(class="form-control") }}
+
+            <br>
+
+            {{ form.submit(class="btn btn-secondary") }}
+
+        </form>
+
+    </div>
+
+    <h4>Don't have an account? <a href="{{ url_for("users.register") }}">Register</a></h4>
+
+{% endblock %}

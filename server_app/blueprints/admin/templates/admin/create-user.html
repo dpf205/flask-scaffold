@@ -1,0 +1,53 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+    Create New User
+{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <p>
+        <h3>Creating a new user, as an Admin, should be similar to independent user registration </h3>
+        </p>
+
+        <div class="container shadow p-3 mb-5 bg-body rounded">
+
+            <form method="POST" action="{{ url_for("admin.create_user") }}">
+
+                {% for message in get_flashed_messages() %}
+                    <div class="alert-error">Error: {{ message }}</div>
+                {% endfor %}
+
+                {{ form.hidden_tag() }}
+
+                <br/>
+
+                {#            {{ form.username.label(class="form-label") }}#}
+                {##}
+                {#            {{ form.username(class="form-control") }}#}
+                <br/>
+
+                {{ form.email.label(class="form-label") }}
+
+                {{ form.email(class="form-control") }}
+                <br/>
+
+                {{ form.password.label(class="form-label") }}
+
+                {{ form.password(class="form-control") }}
+                <br/>
+
+                {{ form.confirm_password.label(class="form-label") }}
+
+                {{ form.confirm_password(class="form-control") }}
+                <br/>
+
+                {{ form.submit(class="btn btn-secondary") }}
+
+            </form>
+
+        </div>
+
+    </div>
+{% endblock %}

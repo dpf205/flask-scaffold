@@ -1,0 +1,56 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+    {{ current_user }}
+{% endblock %}
+
+<br>
+
+{% block body %}
+
+    <div class="container-fluid">
+        <p>Logged in as <i>{{ current_user.email }}</i>.</p>
+
+        <br>
+
+        <p>Settings:</p>
+
+        <br>
+
+        {% if user_is_admin %}
+            <p><a href="{{ url_for('admin.admin_panel') }}">Admin Panel. </a>This is only visible to accounts with the admin role.</p>
+        {% endif %}
+        <br>
+        <p><a href="{{ url_for("users.change_password") }}">Click here</a> to change the password for account <i>{{ current_user.email }}</i>.</p>
+
+        <br>
+        Assigned Role(s):
+        <ul>
+            {% for role in current_user_role_list %}
+
+                <li>{{ role }}</li>
+
+            {% endfor %}
+        </ul>
+
+        <br>
+
+        <p>Granted Permissions:</p>
+        <ul>
+            <li>Example 1</li>
+            <li>Example 2</li>
+            <li>Example 3</li>
+        </ul>
+
+     <p>My Projects:</p>
+        <ul>
+            <li>Example 1</li>
+            <li>Example 2</li>
+            <li>Example 3</li>
+        </ul>
+
+
+    </div>
+
+
+{% endblock %}
