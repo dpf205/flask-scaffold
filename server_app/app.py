@@ -1,9 +1,8 @@
 import time
 import datetime
+
 from flask import Flask
-
 import flask_wtf
-
 from server_app.extensions import Babel, mail
 from server_app.blueprints.users.models import User, Role
 from server_app.blueprints.page import page

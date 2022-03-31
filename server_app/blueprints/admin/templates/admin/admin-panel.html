@@ -32,7 +32,7 @@
                         <!-- Activate / deactivate user account. -->
                         {% if user.active %}
                        Status: Active <br>
-                            <form method="POST" action="{{ url_for("users.deactivate_user") }}">
+                            <form method="POST" action="{{ url_for("admin.deactivate_user") }}">
                                 <div class="form-group">
                                     {{ deactivate_user_form.csrf_token() }}
                                     {{ deactivate_user_form.deactivate_user_id_field(value=user.id) }}
@@ -41,7 +41,7 @@
                             </form>
                         {% else %}
                             Status: Deactivated <br><br>
-                            <form method="POST" action="{{ url_for("users.activate_user") }}">
+                            <form method="POST" action="{{ url_for("admin.activate_user") }}">
                                 <div class="form-group">
                                     {{ activate_user_form.csrf_token() }}
                                     {{ activate_user_form.activate_user_id_field(value=user.id) }}
@@ -52,7 +52,7 @@
                         <br>
 
                         <!-- Delete user account. -->
-                        <form method="POST" action="{{ url_for("users.delete_user") }}">
+                        <form method="POST" action="{{ url_for("admin.delete_user") }}">
                             <div class="form-group">
                                 {{ delete_user_form.csrf_token() }}
                                 {{ delete_user_form.delete_user_id_field(value=user.id) }}

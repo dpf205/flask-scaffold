@@ -3,10 +3,9 @@ from datetime import timedelta
 from decouple import config
 
 PRODUCTION = False
-
 DEVELOPMENT = True
-
 DEBUG = True
+
 LOG_LEVEL = 'DEBUG'  # CRITICAL / ERROR / WARNING / INFO / DEBUG
 
 # Server setup

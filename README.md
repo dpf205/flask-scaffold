@@ -1,12 +1,16 @@
 # Overview
 * Backend: Flask, PostgreSQL, Docker -- frontend: Bootstrap 5 and Jinja2 templates, WTForms.
-* This repository is intended as a scaffold -- a reusable starting template for a ***development*** environment. 
 * The structure follows the [Application Factory Pattern](https://flask.palletsprojects.com/en/2.1.x/patterns/appfactories/). 
 * Current features: user login / registration, RBAC.
 * Additions / refinements will occur -- with priority given to server-side development.
 
-# Initial setup (see example_files/)
-Create a `.env` file in the root directory, and set the configuration values as illustrated:
+
+# Authentication and Role-based Access Control 
+- This project uses the [Flask-Security-Too](https://flask-security-too.readthedocs.io/en/stable/) package.
+
+# Initial setup 
+Create a `.env` file in the root directory, and set the configuration values, as illustrated in example_files/
+These values are read by config/settings.py, via the [python-decouple](https://pypi.org/project/python-decouple/) package.
 
     COMPOSE_PROJECT_NAME=<project name>
     DB_DIALECT_DRIVER=<e.g. postgresql>
@@ -16,22 +20,25 @@ Create a `.env` file in the root directory, and set the configuration values as 
     DATABASE_PORT=<.e.g. 5432>
     DATABASE_NANE=<.e.g. dev_db>
     PYTHONUNBUFFERED=true
-These values are read by config/settings.py, via the [python-decouple](https://pypi.org/project/python-decouple/) package.
 
-# Authentication and Role-based Access Control 
-- This project uses the [Flask-Security-Too](https://flask-security-too.readthedocs.io/en/stable/) package.
-  
+Option #1: Run the Flask app locally
+* Install PostgreSQL locally and create a db server and database according the db_uri examples shown in `config/settings.py` and `example_files/.env`
+* Example db_uri format: dialect+driver <postgresql>://<postgresql username>:<postgresql password>@<hostname>:<postgres db port>/<database_name>
+* Create a virtual environment in root directory and run `$ pip3 install -r requirements.txt` 
+* Run `$ source venv/bin/activate` to  activate the virtual environment
+* Run `$ python3 run.py`
 
-# Docker
+
+Option #2: Run the Flask app in a Docker container:
 * Within root directory, initialise Docker container and build app `docker-compose up --build` 
 * Clean up docker containers, remove dangling images, build and start a new docker image / container:
 `docker-compose down && docker-compose rm -f && docker volume rm $(docker volume ls -q) && docker rmi -f -a $(docker images -qf dangling=true) && docker-compose up --build --remove-orphans`
 
 
-# Database -- PostgreSQL w/ SQLAlchemy ORM
+# Database -- PostgreSQL w/ SQLAlchemy
 * In `config/settings.py`, set `db_uri` variable to the desired connection string / URL
 * Example db_uri string format: " dialect+driver ("postgresql")://<database_owner_username>:<database_owner_password>@<hostname>:<port>/<database_name> "
-* E.g. ` db_uri = "postgresql://postgres:1ntrep1d@postgres:5432/dev_db" `
+* E.g. ` db_uri = "postgresql://postgres:password@postgres:5432/dev_db" `
 * In `config/settings.py`, set `SQLALCHEMY_DATABASE_URI` equal to `db_uri`, as [SQLALCHEMY_DATABASE_URI](https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/) is among the configuration keys 
   currently understood by SQLAlchemy
 * This application runs the Postgres db in the same container as the rest of the application. Ergo, <hostname> is set to "postgres", the name of the docker-compose.yml volume.
@@ -65,16 +72,18 @@ However, this will include Python docstrings, the CLI  script, if present, and a
     and put `<Dockerfile ENV INSTALL_PATH>_NAME = "644f-74-111-99-166.ngrok.io"` in `<Dockerfile ENV INSTALL_PATH>/instance/settings.py`. If absent, Flask will throw a 404.
  
 
-# Planned near-term enhancements (order does not indicate priority)
+# TODOS and Planned near-term enhancements (order does not indicate priority)
 * Automated CI/CD: Jenkins is the likely option
 * Deployment: Terraform deployment scripts -- to DigitalOcean, AWS, and / or GCP -- are forthcoming.
 * Sphinx or Swagger Documentation: TBD
 * Teraform visualizations: TBD
-* Decoupled Vue.js frontend API. Alternatives [Tailwind](https://tailwindcss.com/) and/or [HTMx](https://htmx.org/).
+* Decoupled Vue.js frontend API or [Bulma](https://bulma.io/), [Tailwind](https://tailwindcss.com/), or [HTMx](https://htmx.org/).
 * Dedicated JSON APIs
 * Cosmetic frontend improvements
 * Apache Airflow ETL 
 * Finish writing all ***backend*** tests
 * Logging, exception handling, error handling (dedicated error pages)
+* Add docstrings to functions / methods
+* Add a Click CLI
 
 
