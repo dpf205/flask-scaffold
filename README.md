@@ -21,18 +21,18 @@ These values are read by config/settings.py, via the [python-decouple](https://p
     DATABASE_NANE=<.e.g. dev_db>
     PYTHONUNBUFFERED=true
 
-Option #1: Run the Flask app locally
+
+Option #1: Run the Flask app in a Docker container (primary)
+* Within root directory, initialise Docker container and build app `docker-compose up --build` 
+* Clean up docker containers, remove dangling images, build and start a new docker image / container:
+`docker-compose down && docker-compose rm -f && docker volume rm $(docker volume ls -q) && docker rmi -f -a $(docker images -qf dangling=true) && docker-compose up --build --remove-orphans`
+
+Option #2: Run the Flask app locally (ongoing refactor)
 * Install PostgreSQL locally and create a db server and database according the db_uri examples shown in `config/settings.py` and `example_files/.env`
 * Example db_uri format: dialect+driver <postgresql>://<postgresql username>:<postgresql password>@<hostname>:<postgres db port>/<database_name>
 * Create a virtual environment in root directory and run `$ pip3 install -r requirements.txt` 
 * Run `$ source venv/bin/activate` to  activate the virtual environment
 * Run `$ python3 run.py`
-
-
-Option #2: Run the Flask app in a Docker container:
-* Within root directory, initialise Docker container and build app `docker-compose up --build` 
-* Clean up docker containers, remove dangling images, build and start a new docker image / container:
-`docker-compose down && docker-compose rm -f && docker volume rm $(docker volume ls -q) && docker rmi -f -a $(docker images -qf dangling=true) && docker-compose up --build --remove-orphans`
 
 
 # Database -- PostgreSQL w/ SQLAlchemy
@@ -84,6 +84,6 @@ However, this will include Python docstrings, the CLI  script, if present, and a
 * Finish writing all ***backend*** tests
 * Logging, exception handling, error handling (dedicated error pages)
 * Add docstrings to functions / methods
-* Add a Click CLI
+* Finish the Click CLI
 
 
